@@ -13,6 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        DB::table('scandinavian_pdf')->insert([
+            'name' => Str::random(10),
+            'data' => '{"rows":4, "cols":5, "thumbCount": 20}'
+        ]);
     }
 }

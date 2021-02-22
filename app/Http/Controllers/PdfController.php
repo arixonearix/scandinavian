@@ -9,29 +9,19 @@ use Illuminate\Support\Facades\Redis;
 
 class PdfController extends Controller
 {
-    const MAIN_PAGE_COUNT = 20;
     const MAIN_PAGE_CONFIG = 'mainPage';
-    /**
-     * @var Pdf
-     */
-    protected $pdfModel;
-
-    public function __construct()
-    {
-        $this->pdfModel = new Pdf();
-    }
 
     /**
      * @return false|string
      */
     public function getMainPagePdfList()
     {
+        $mainPageConfig = $this->getMainPageConfig();
         $pdfList = Pdf::where('active', Pdf::ACTIVE)
                     ->orderBy('id')
-                    ->take(self::MAIN_PAGE_COUNT)
+                    ->take($mainPageConfig->thumbCount)
                     ->get()
                     ->toArray();
-        $mainPageConfig = $this->getMainPageConfig();
 
         return json_encode(['config' => $mainPageConfig, 'pdfList' => $pdfList]);
     }
@@ -39,6 +29,9 @@ class PdfController extends Controller
     /**
      * Get from Redis(set if is missed) config to tell UI in how much
      * rows and cols should be shown pdf thumbnails
+     * @property integer $rows how much thumbnails shown in a row
+     * @property integer $cols how much thumbnails shown in a row
+     * @property integer $thumbCount how much thumbnails shown in a row
      * @return object config
      */
     public function getMainPageConfig()
