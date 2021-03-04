@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('scandinavian_pdf')->insert([
+        DB::table('page_config')->insert([
             'name' => Str::random(10),
             'data' => '{"rows":4, "cols":5, "thumbCount": 20}'
         ]);

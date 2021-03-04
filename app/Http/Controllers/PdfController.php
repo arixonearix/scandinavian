@@ -41,7 +41,7 @@ class PdfController extends Controller
             $mainPageConfig = PageConfig
                 ::where('name', self::MAIN_PAGE_CONFIG)
                 ->get()
-                ->toArray();
+                ->first();
             Redis::set(self::MAIN_PAGE_CONFIG, $mainPageConfig);
         }
 

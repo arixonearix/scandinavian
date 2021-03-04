@@ -9,5 +9,5 @@ class PageConfig extends Model
 {
     use HasFactory;
 
-    protected $table = 'scandinavian_pdf';
+    protected $table = 'page_config';
 }
